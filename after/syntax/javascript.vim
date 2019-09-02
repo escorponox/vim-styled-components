@@ -8,13 +8,6 @@ if exists("b:current_syntax")
   unlet b:current_syntax
 endif
 
-
-" fix for "-" before cssPositioningProp
-"   - needs to be above CSS include to not match cssVendor definitions
-syn region cssCustomPositioningPrefix contained
-      \ start='-' end='\%(\s\{-}:\)\@='
-      \ contains=cssPositioningProp
-
 " introduce CSS cluster from built-in (or single third party syntax file)
 syn include @CSS syntax/css.vim
 
@@ -28,26 +21,6 @@ if v:version >= 700
 endif
 
 " TODO: include react-native keywords
-
-" define custom cssAttrRegion
-"   - add ",", "`" and "{" to the end characters
-"   - add "cssPseudoClassId" to it's containing elements
-"     this will incorrectly highlight pseudo elements incorrectly used as
-"     attributes but correctly highlight actual attributes
-syn region cssCustomAttrRegion contained
-      \ start=":" end="\ze\%(;\|)\|{\|}\|`\)"
-      \ contains=css.*Attr,cssColor,cssImportant,cssValue.*,cssFunction,
-      \          cssString.*,cssURL,cssComment,cssUnicodeEscape,cssVendor,
-      \          cssError,cssAttrComma,cssNoise,cssPseudoClassId,
-      \          jsTemplateExpression,
-      \          typescriptInterpolation,typescriptTemplateSubstitution
-syn region cssCustomAttrRegion contained
-      \ start="transition\s*:" end="\ze\%(;\|)\|{\|}\|`\)"
-      \ contains=css.*Prop,css.*Attr,cssColor,cssImportant,cssValue.*,
-      \          cssFunction,cssString.*,cssURL,cssComment,cssUnicodeEscape,
-      \          cssVendor,cssError,cssAttrComma,cssNoise,cssPseudoClassId,
-      \          jsTemplateExpression,
-      \          typescriptInterpolation,typescriptTemplateSubstitution
 
 " define custom css elements to not utilize cssDefinition
 syn region cssCustomMediaBlock contained fold transparent matchgroup=cssBraces
@@ -182,7 +155,6 @@ syn cluster javascriptAfterIdentifier add=styledPrefix,jsFuncCall
 
 " color the custom highlight elements
 hi def link cssCustomKeyFrameSelector  Constant
-hi def link cssCustomPositioningPrefix StorageClass
 hi def link styledAmpersand            Special
 
 hi def link styledXmlRegionKeyword Type

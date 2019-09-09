@@ -126,7 +126,7 @@ syn match jsFuncCall "\<dc\>\s*(\%('\k\+'\|\"\k\+\"\|`\k\+`\))\%((\)\@="
 " inject css highlighting into custom jsTemplateString region
 "   - use `extend` to not end all nested jsTemplateExpression on the first
 "     closing one
-syn region styledDefinition contained transparent fold extend
+syn region styledDefinition contained fold extend
       \ start="`" end="`" skip="\\\%(`\|$\)"
       \ contains=@CSSTop,
       \          css.*Prop,cssValue.*,cssColor,cssUrl,cssImportant,cssError,
@@ -135,7 +135,7 @@ syn region styledDefinition contained transparent fold extend
       \          cssCustom.*,
       \          jsComment,jsTemplateExpression,
       \          typescriptInterpolation,typescriptTemplateSubstitution,
-      \          styledAmpersand,styledNestedRegion
+      \          styledAmpersand,styledNestedRegion,cssNoise,cssPseudoClassId,cssPseudoClassFn
 syn region styledDefinitionArgument contained transparent start=+(+ end=+)+
       \ contains=styledDefinition
 
@@ -160,6 +160,8 @@ hi def link styledAmpersand            Special
 hi def link styledXmlRegionKeyword Type
 hi def link styledXmlRegionNoise   Noise
 hi def link styledXmlRegion        String
+
+hi! def link styledDefinition GruvboxFg3
 
 
 if exists("s:current_syntax")
